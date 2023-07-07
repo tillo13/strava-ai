@@ -43,10 +43,23 @@ def check_token():
 
     strava_last_checked = datetime.now().timestamp()  # Store the current timestamp for the last checked time
     strava_last_checked_seattle = datetime.fromtimestamp(strava_last_checked, tz=timezone('US/Pacific'))  # Convert to Seattle timezone
-    
+
     # If the token has expired
     if now > expires_at:
+        # Print an error message in red
+        print("\033[91mToken has expired! Refreshing token...\033[0m")
         get_new_token()
+        # Get the new token data
+        access_token = os.getenv('STRAVA_ACCESS_TOKEN')
+        expires_at_new = float(os.getenv('STRAVA_TOKEN_EXPIRES_AT'))
+        expires_at_new_seattle = datetime.fromtimestamp(expires_at_new, tz=timezone('US/Pacific'))
+        # Tell the user the new token data
+        print("\033[95m============\033[0m")
+        print('\033[92mToken has been refreshed!\033[0m')
+        print(f"The new access token is: \033[93m{access_token}\033[0m")
+        print(f"It will expire at: \033[93m{expires_at_new_seattle} (PST timezone)\033[0m")
+        print("\033[95m============\033[0m")
+
     else:
         time_left = abs(expires_at - now)  # Time left in seconds
         hours_left = time_left // 3600
@@ -55,9 +68,12 @@ def check_token():
 
         expires_at_seattle = datetime.fromtimestamp(expires_at, tz=timezone('US/Pacific'))
 
-        print("No need to refresh the token, but we will do it next if needed!")
-        print(f"It has {hours_left} hours, {minutes_left} minutes, and {seconds_left} seconds left till it needs a refresh!")
-        print(f"It will expire at {expires_at_seattle} (PST timezone).")
+        # Tell the user the status...
+        print("\033[94m" + "=" * 60 + "\033[0m")
+        print('\033[92mNo need to refresh the token, but we will do it next if needed!\033[0m')
+        print(f"It has \033[93m{hours_left} hours, {minutes_left} minutes, and {seconds_left} seconds\033[0m left till it needs a refresh!")
+        print(f"It will expire at \033[93m{expires_at_seattle} (PST timezone)\033[0m.")
+        print("\033[94m" + "=" * 60 + "\033[0m")
 
     # Update .env file
     with open('.env', 'w') as file:
@@ -68,4 +84,6 @@ def check_token():
         file.write(f"STRAVA_TOKEN_EXPIRES_AT={os.getenv('STRAVA_TOKEN_EXPIRES_AT')}\n")
         file.write(f"STRAVA_LAST_CHECKED={strava_last_checked} ({strava_last_checked_seattle})\n")  # Add human-readable timestamp
 
-check_token()  # Check and update the token
+# Add the following condition to execute check_token() only when the script is run independently
+if __name__ == "__main__":
+    check_token()

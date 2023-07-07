@@ -1,2 +1,5 @@
 # Ignore .env file
 .env
+
+# Ignore activities folder
+/activities/
