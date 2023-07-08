@@ -7,14 +7,13 @@ from os.path import isfile
 import pytz
 import json
 
-
 load_dotenv()
 
 url_csv = "access_tokens.csv"
 url_check = "token_check_log.csv"
 
 def convert_timestamp(timestamp):
-    timezone = pytz.timezone('America/Los_Angeles')  # Set the timezone to Seattle, WA
+    timezone = pytz.timezone('America/Los_Angeles')
     local_time = datetime.fromtimestamp(timestamp, tz=timezone)
     return local_time.strftime('%Y-%m-%d %H:%M:%S')
 
@@ -43,19 +42,29 @@ def check_for_id(client_id):
     return False
 
 def get_refresh_token(client_id):
-    if check_for_id(client_id):  # Check if the CSV file exists
+    print("Querying access_tokens.csv for refresh token...")
+    if check_for_id(client_id):
         with open(url_csv, 'r') as file:
             reader = csv.DictReader(file)
-            for row in reversed(list(reader)):  # Start from the end and move up
+            for row in reversed(list(reader)):
                 if row['client_id'] == client_id:
+                    print(f"Matching client_id {client_id} found.")
                     return row['refresh_token']
-    return os.getenv('INITIAL_STRAVA_REFRESH_TOKEN')  # Return initial refresh token if CSV does not exist
+
+    print("Refresh token for given client ID could not be found.")
+    refresh_token = input("Please enter a refresh token: ")
+    return refresh_token
 
 def get_new_token():
     url = "https://www.strava.com/oauth/token"
     client_id = os.getenv('STRAVA_CLIENT_ID')
     refresh_token = get_refresh_token(client_id)
-    
+
+    if not refresh_token:
+        print("No refresh token provided. Exiting...")
+        return None, None
+
+    print("Querying Strava for a new access token...")
     payload = {
         'client_id': client_id,
         'client_secret': os.getenv('STRAVA_CLIENT_SECRET'),
@@ -66,23 +75,20 @@ def get_new_token():
 
     try:
         response = requests.post(url, params=payload)
-        response.raise_for_status()  # Raises stored HTTPError, if one occurred.
+        response.raise_for_status()
     except requests.exceptions.RequestException as err:
         print (err)
-        return None, None  # Return None if any error occurs during request
+        return None, None
 
     response_json = response.json()
-
     file_exists = isfile(url_csv)
-    
+
     with open(url_csv, mode='a') as file:
         headers = ['client_id', 'access_token', 'expires_at', 'refresh_token']
         writer = csv.DictWriter(file, fieldnames=headers)
-        
-        if not file_exists:  # If it's the first time and the file does not exist
+        if not file_exists:
             writer.writeheader()
-
-        if not check_for_id(client_id):  # Check if the ID does not exist
+        if not check_for_id(client_id):
             writer.writerow({
                 'client_id': client_id, 
                 'access_token': response_json['access_token'], 
@@ -90,52 +96,49 @@ def get_new_token():
                 'refresh_token': response_json['refresh_token']
             })
 
-    print("Strava response:", response_json)  # Print the response
+    print("Strava API response:", response_json)
     return response_json['access_token'], response_json['refresh_token']
-
 
 def check_token():
     client_id = os.getenv('STRAVA_CLIENT_ID')
-
     print("Getting new access token...")
     access_token, refresh_token = get_new_token()
     if access_token is None and refresh_token is None:
         return
 
-    # Call get_athlete_id and get the response
-    status_code, response_data = get_athlete_id(access_token)
-    print(f'get_athlete_id response: Status code: {status_code}')
-    print(json.dumps(response_data, indent=4))  # Print the full JSON response
-
-
-
-
-
-
-
+    print("Access token obtained. Fetching athlete ID now...")
+    status_code, response_data = get_athlete_id(access_token)      
     
+    if response_data is not None:
+        username = response_data.get('username')
+        athlete_id = response_data.get('id')
+        print(f'get_athlete_id response: Status code: {status_code}, username={username}, athlete_id={athlete_id}')
+    else:
+        print(f'get_athlete_id response: Status code: {status_code}')
+
     with open(url_csv, 'r') as file:
         reader = csv.DictReader(file)
         for row in reversed(list(reader)):  # Start from the end and move up
             if row['client_id'] == client_id:
                 expires_at = row['expires_at']
 
+    print("Checking if token is still valid...")
     now = datetime.now()
     human_readable_timestamp = convert_timestamp(now.timestamp())
+    token_refreshed = False
 
-    result = "No refresh needed"
     if now.timestamp() > int(expires_at):
-        print("Token has expired! Refreshing token...")
+        print("Token has expired! Refreshing token now...")
         access_token, refresh_token = get_new_token()
-        result = "Token refreshed"
-        print("Token has been refreshed!")
+        token_refreshed = True
 
     file_exists = isfile(url_check)
+    result = "Token still valid" if now.timestamp() <= int(expires_at) else "Token refreshed"
+    
     with open(url_check, mode='a') as file:
         headers = ['client_id', 'token_last_checked', 'human_readable_timestamp', 'result']
         writer = csv.DictWriter(file, fieldnames=headers)
-        
-        if not file_exists:  # If it's the first time and the file does not exist
+        if not file_exists:
             writer.writeheader()
 
         writer.writerow({
@@ -145,6 +148,8 @@ def check_token():
             'result': result
         })
 
+    print(f"The final access token is: {access_token}")
+    print(f"Token refreshed during this run: {'Yes' if token_refreshed else 'No'}")
     return access_token
 
 if __name__ == "__main__":
