@@ -5,4 +5,7 @@
 /activities/
 
 #ignore access_tokens.csv
-acces_tokens.csv
+access_tokens.csv
+
+#no need
+__pycache__/
