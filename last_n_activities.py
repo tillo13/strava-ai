@@ -3,12 +3,10 @@ import requests
 from initialize import check_token
 import json
 import time
-
-# Check and update the token 
-check_token()
+import sys
 
 # Proceed with the API call
-access_token = os.getenv('STRAVA_ACCESS_TOKEN')
+access_token = check_token()  # This will give you the latest access token
 
 url = "https://www.strava.com/api/v3/athlete/activities"
 
@@ -23,7 +21,19 @@ params = {
 
 response = requests.get(url, headers=headers, params=params)
 
-# Create the 'activities' folder if it doesn't exist
+# check if the response is JSON
+try:
+    activities = response.json()
+except json.JSONDecodeError:
+    print(f"Error decoding JSON response: {response.text}")
+    sys.exit(1)
+
+# ensure the activities object is a list
+if not isinstance(activities, list):
+    print(f"Unexpected API response: {activities}")
+    sys.exit(1)
+
+# continue with your original code...
 folder_path = './activities'
 os.makedirs(folder_path, exist_ok=True)
 
