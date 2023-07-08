@@ -3,3 +3,6 @@
 
 # Ignore activities folder
 /activities/
+
+#ignore access_tokens.csv
+acces_tokens.csv
