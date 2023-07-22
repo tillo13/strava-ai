@@ -59,7 +59,9 @@ colors = [Fore.GREEN, Fore.YELLOW, Fore.BLUE, Fore.MAGENTA, Fore.RED, Fore.CYAN,
 
 for idx, (category, rides) in enumerate(sorted_peloton_ride_scores.items()):
     sorted_rides = sorted(rides.items(), key=lambda x: x[1], reverse=True)
+    #want to see the worst rides?  Uncomment this line -> sorted_rides = sorted(rides.items(), key=lambda x: x[1])
     table = []
+
     for filename, score in sorted_rides[:5]:
         with open(os.path.join(directory, filename), 'r') as file:
             data = json.load(file)
