@@ -15,7 +15,7 @@ headers = {
 }
 
 params = {
-    'per_page': 3,  # Number of activities per page
+    'per_page': 7,  # Number of activities per page
     'page': 1  # Page number
 }
 

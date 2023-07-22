@@ -4,8 +4,10 @@
 #ignore notes
 notes.txt
 
-# Ignore activities folder
+# Ignore activities folders
 /activities/
+/data_cleansing/activities/
+
 
 #ignore access_tokens.csv
 access_tokens.csv
