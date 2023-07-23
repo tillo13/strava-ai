@@ -77,5 +77,5 @@ for idx, (category, rides) in enumerate(sorted_peloton_ride_scores.items()):
         table.append([category, ride_time, score, average_speed, total_distance, average_watts, kj_per_min, kudos_count, filename, ride_name]) #update table append
     
     print('\n' + colors[idx] + f'Top rides for {category} mins:' + Style.RESET_ALL)
-    headers = ["Mins", "Ride Date", "Score", "Avg Speed(mph)", "Distance(miles)", "Avg Watts", "kJ/min", "Kudos Count", "Filename", "Ride Name"] #update headers
+    headers = ["Mins", "Ride Date", "kJ Score", "Avg Speed(mph)", "Distance(miles)", "Avg Watts", "kJ/min", "Kudos Count", "Filename", "Ride Name"] #update headers
     print(tabulate(table, headers=headers))

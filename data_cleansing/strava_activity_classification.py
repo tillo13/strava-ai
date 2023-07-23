@@ -16,7 +16,14 @@ workout_mapping = {
     'fit family': 'Basics',
     'arms & light weights': 'Strength',
     'restorative': 'Meditation',
-    'foam rolling': 'Stretch'
+    'foam rolling': 'Stretch',
+    'shadowboxing': 'Core',
+    'jumpstart your day': 'Warm-up',
+    'mobility': 'Warm-up',
+    'flow & let go': 'Warm-up',
+    'glutes': 'Lower Body',
+    'ride' : 'Basics',
+    'bodyweight' : 'Strength'
 }
 
 
