@@ -11,7 +11,7 @@ url = 'https://www.strava.com/oauth/token'
 payload = {
     'client_id': os.getenv('STRAVA_CLIENT_ID'),
     'client_secret': os.getenv('STRAVA_CLIENT_SECRET'),
-    'code': 'de13e357a2e56f5cc29f6282983a2970d38dd972',  # replace with your authorization code
+    'code': '<anything here for now>',  # replace with your authorization code
     'grant_type': 'authorization_code'
 }
 
