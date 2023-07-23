@@ -1,7 +1,7 @@
 import os
 import json
 
-folder = './activities'
+folder = './data_cleansing/activities'
 files = os.listdir(folder)
 
 # Initialize a dictionary to store filed counts for each type of activity

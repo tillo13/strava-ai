@@ -1,7 +1,7 @@
 import os
 import json
 
-folder = './activities'
+folder = './data_cleansing/activities'
 files = os.listdir(folder)
 
 peloton_activities = {'Ride': 0, 'Yoga': 0, 'EBikeRide': 0, 'Run': 0, 'Walk': 0, 'Workout': 0, 'Other': 0}
