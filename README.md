@@ -73,4 +73,6 @@ Strava API has a limit of 100 requests per 15 minutes and 1000 requests per day.
 
 # Screenshots
 
-![Top Rides](./top_rides.png)
+![Top Rides](./images/top_rides.png)
+![Average KJ](./images/avg_kj.png)
+![Classification of Strava rides](./images/strava_activity_classification.png)

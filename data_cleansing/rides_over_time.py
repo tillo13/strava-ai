@@ -4,7 +4,7 @@ from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 
-directory = './activities'
+directory = './data_cleansing/activities'
 files = os.listdir(directory)
 
 # Step 1: Extract the metrics and ride dates
