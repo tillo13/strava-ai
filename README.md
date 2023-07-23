@@ -70,3 +70,7 @@ Hit me up with ideas, but a few things:
 
 ## Limit Rate
 Strava API has a limit of 100 requests per 15 minutes and 1000 requests per day. If the limit is exceeded, be friendly to their API!
+
+# Screenshots
+
+![Top Rides](./top_rides.png)
