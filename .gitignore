@@ -16,3 +16,5 @@ access_tokens.csv
 __pycache__/
 
 .DS_Store
+
+token_check_log.csv
