@@ -27,7 +27,7 @@ categorical_fields = {
 
 fields = {**numeric_fields, **categorical_fields}
 
-folder = '/activities'  
+folder = '/data_cleansing/activities'  
 files = glob.glob(os.path.join(folder, '*.json'))
 
 def trimmed_info(data, proportion_trimmed):

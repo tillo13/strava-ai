@@ -3,7 +3,7 @@ import os
 import glob
 from collections import defaultdict
 
-folder = './activities'  
+folder = './data_cleansing/activities'  
 files = glob.glob(os.path.join(folder, '*.json'))
 
 def validate_files(files):

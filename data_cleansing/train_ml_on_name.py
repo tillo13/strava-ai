@@ -15,7 +15,7 @@ keywords = {
 summary = defaultdict(int)
 
 # scan all files
-folder = './activities'  
+folder = './data_cleansing/activities'  
 files = glob.glob(os.path.join(folder, '*.json'))
 
 for file in files:

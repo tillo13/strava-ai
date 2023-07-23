@@ -26,7 +26,7 @@ def categorize_ride(data):
         return expected_duration
     return None
 
-directory = './activities'
+directory = './data_cleansing/activities'
 files = os.listdir(directory)
 peloton_ride_scores = {}
 

@@ -1,7 +1,7 @@
 import os, json
 import pandas as pd
 
-activities_folder = 'activities'  # Update the path to match your folder structure
+activities_folder = './data_cleansing/activities'  # Update the path to match your folder structure
 json_files = [file for file in os.listdir(activities_folder) if file.endswith('.json')]
 
 rides = []
