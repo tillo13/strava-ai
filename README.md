@@ -1,4 +1,4 @@
-# Strava API JSON Ingest Project Description
+# Strava Workout Analyzer
 
 This is a suite of Python scripts for the Strava fitness application. The aim is to download, cleanse and analyze user activities in different ways. There are scripts to access the Strava API, fetch and refresh access tokens, download activities, validate JSON data and classify, score and provide summary statistics about activities.
 
