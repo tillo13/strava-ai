@@ -1,6 +1,6 @@
 # Delving Deep into Strava Workouts with Python and Machine Learning
 
-Over the course of one weekend, I embarked on an insightful journey, plunging into my repository of ~3000 workouts on Strava with a clear goal - to study, explore, and unlock insights with the power of Machine Learning (ML). This blog will narrate my explorations, shedding light on how different stages of machine learning can be harnessed to extract value from raw data. I performed data extraction, processing, exploration, modeling, evaluation, and ultimately prediction, leveraging Python as my language of instruction and my code is available on [GitHub](https://github.com/tillo13/strava-ai/blob/main/blog_post.txt) for tech enthusiasts to delve deeper.
+Over the weekend, I thought I'd dig around into my repository of ~2000 workouts on Strava (https://www.strava.com/athletes/18443678) with the idea to study, explore, and unlock some fun insights with Machine Learning (ML). This writeup will narrate my explorations, shedding light on how different stages of machine learning can be harnessed to extract value from raw data. I performed data extraction, processing, exploration, modeling, evaluation, and ultimately prediction, leveraging Python.
 
 ## The First Milestone: Channeling Strava Data Into Our System - An Enhanced Walking Through
 
@@ -61,7 +61,7 @@ The script creates a dedicated folder named 'activities' to store each JSON file
 
 ## Sorting the Raw Data: Field Frequency and Missing Fields
 
-After pulling my raw Strava data, the focus of this stage was to sort and organize the data. More precisely, I was interested in determining the frequency of occurrence of different fields or data points across the 3000 Strava workouts represented as JSON files. 
+After pulling my raw Strava data, the focus of this stage was to sort and organize the data. More precisely, I was interested in determining the frequency of occurrence of different fields or data points across the ~2000 Strava workouts represented as JSON files. 
 
 ```python
 folder = './data_cleansing/activities'  
