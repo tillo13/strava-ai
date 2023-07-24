@@ -1,6 +1,7 @@
 # Strava Workout Analyzer + Machine Learning Exploration
 
 Read a bit more in depth about it here: https://github.com/tillo13/strava-ai/blob/main/strava_ml_writeup.md 
+
 This digital suite, crafted from a collection of Python scripts, is a specialized toolkit for the Strava fitness application. Its primary purpose is to download, cleanse, and perform a meticulous analysis of a user's ‘Strava activities’. It is enriched with scripts that serve a variety of utilities - connecting with the Strava API, fetching and refreshing access tokens, downloading activities, validating the reliability of JSON data, and eventually providing classified, scored, and wholesome summaries of the fitness activities.
 
 Notably equipped for Strava data handling and analysis, the repository carries the following scripts:
