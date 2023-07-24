@@ -13,7 +13,6 @@ time_zone = 'America/Los_Angeles'
 folder = './data_cleansing/activities'
 files = os.listdir(folder)
 
-#this remove the top and bottom % of values before calculating the averages in case of outliers
 TRIM_VALUE = .005
 def remove_outliers(values):
     values.sort()
@@ -40,16 +39,9 @@ def color_rows(rows, attrs):
         colored_rows.append(colored_row)
     return colored_rows
 
-# Define our timezone as variable time_zone (Seattle's timezone for this case)
 custom_tz = timezone(time_zone)
-
-# Initialize a dictionary to store workout counts for each hour of the day
 workouts_per_hour = defaultdict(int)
-
-# Attributes to store average
 attrs = ['max_heartrate', 'average_heartrate', 'kilojoules', 'weighted_average_watts', 'max_watts', 'average_watts', 'average_cadence', 'max_speed', 'average_speed', 'elapsed_time', 'distance']
-
-# Initialize a dictionary to store the values of these attributes for each hour
 attr_values = defaultdict(lambda: defaultdict(list))
 
 for filename in files:
@@ -66,16 +58,17 @@ for filename in files:
 
                     for attr in attrs:
                         value = data.get(attr)
-                        if value is not None:
+                        if value is not None and value != 0:
                             if attr == 'elapsed_time':
                                 value /= 60
                             elif attr == 'distance':
                                 value /= 1609.34
+                            elif 'speed' in attr:
+                                value *= 2.23694  # Convert to miles per hour
                             attr_values[custom_time.hour][attr].append(value)
 
             except (ValueError, KeyError, TypeError) as e:
                 continue
-
 table_data = []
 
 print(f"Hour of Day ({time_zone}) - Number of Workouts - Average Values")
