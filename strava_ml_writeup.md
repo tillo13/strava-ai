@@ -1,4 +1,3 @@
-```
 # Delving Deep into Strava Workouts with Python and Machine Learning
 
 Over the course of one weekend, I embarked on an insightful journey, plunging into my repository of ~3000 workouts on Strava with a clear goal - to study, explore, and unlock insights with the power of Machine Learning (ML). This blog will narrate my explorations, shedding light on how different stages of machine learning can be harnessed to extract value from raw data. I performed data extraction, processing, exploration, modeling, evaluation, and ultimately prediction, leveraging Python as my language of instruction and my code is available on [GitHub](https://github.com/tillo13/strava-ai/blob/main/blog_post.txt) for tech enthusiasts to delve deeper.
