@@ -22,7 +22,7 @@ Resulting from this script is the systematic classification of Peloton classes. 
 This script is your personal leaderboard maker. It navigates through your history of Peloton rides on Strava to rank your top 5 rides. The scoreboard is curated based on a scoring system that calculates the effort exerted during each ride.
 
 6. **briskr_score.py**: 
-Borrowing from the popular Bris.kr score method, this script evaluates the ride intensity, honoring the highest scores to the most intense rides. It nets out with a compiled summary of your top 5 rides for each ride length category, celebrating the sweat and gears of each endeavor.
+Borrowing from the popular Bris.kr score method from the project I made for Boomi here: https://community.boomi.com/s/article/Boomi-helps-keep-you-healthy, this script evaluates the ride intensity, honoring the highest scores to the most intense rides. It nets out with a compiled summary of your top 5 rides for each ride length category, celebrating the sweat and gears of each endeavor.
 
 7. **monthly_totals_over_time.py**: 
 This script is your timeline navigator. It rummages through the downloaded activities, assorting them by activity type and month before outputting a wholesome summary. For each month, it tallies up the total number of unique activities.
